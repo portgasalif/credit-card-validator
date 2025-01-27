@@ -22,7 +22,7 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
-
+//Validates credit card numbers using Luhn algorithm
 const validateCred = (array) => {
     let checkArray = [...array];
     let total = 0;
@@ -43,10 +43,9 @@ const validateCred = (array) => {
     }
     return total % 10 === 0;
 }
-
+//Finds invalid cards from a batch
 const findInvalidCards = (cards) => {
     let invalidCards = [];
-
 
     for (let card of cards) {
         if (!validateCred(card)) {
@@ -54,4 +53,39 @@ const findInvalidCards = (cards) => {
         }
     }
     return invalidCards;
+
+}
+//Identifies companies that issued invalid cards
+const idInvalidCardCompanies = (invalidCompanies) => {
+    let companies = [];
+
+    for (let card of invalidCompanies) {
+
+        switch (card[0]) {
+            case 3:
+                if (!companies.includes('Amex')) {
+                    companies.push('Amex');
+                }
+                break;
+            case 4:
+                if (!companies.includes('Visa')) {
+                    companies.push('Visa');
+                }
+                break;
+            case 5:
+                if (!companies.includes('Mastercard')) {
+                    companies.push('Mastercard');
+                }
+                break;
+            case 6:
+                if (!companies.includes('Discover')) {
+                    companies.push('Discover');
+                }
+                break;
+
+            default:
+                console.log("Company not found");
+        }
+    }
+    return companies;
 }
